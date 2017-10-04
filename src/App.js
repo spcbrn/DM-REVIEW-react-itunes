@@ -36,7 +36,6 @@ class App extends Component {
     const resultsArr = this.state.results.map((e, i) => {
       return (
         <Results key={i}
-                 style={{width:'100%'}}
                  play={e.previewUrl}
                  song={e.trackName}
                  artist={e.artistName}
