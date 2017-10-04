@@ -19,10 +19,14 @@ class App extends Component {
   
   handleSearch(e){
     if(e.keyCode === 13){
-      axios.get(`https://itunes.apple.com/search?term=${this.state.artist}`)
+
+      //01: plug our search string into the request URL
+      axios.get(`https://itunes.apple.com/search?term=`)
       .then(res => {
+
+        //02: determine path to the array of results we want and put it on state
 		    this.setState({
-          results: res.data.results
+          results: []
         })
 	    })
     }
@@ -33,19 +37,10 @@ class App extends Component {
   }
 
   render() {
-    const resultsArr = this.state.results.map((e, i) => {
-      return (
-        <Results key={i}
-                 play={e.previewUrl}
-                 song={e.trackName}
-                 artist={e.artistName}
-                 collection={e.collectionName}
-                 albumArt={e.artworkUrl60}
-                 type={e.kind}
-                 singlePrice={e.trackPrice}
-                 collectionPrice={e.collectionPrice}/>
-      )
-    })
+
+    //03: render our array of results using the Results component, and pass in all necessary props
+    const resultsArr = [];
+
     return (
       <div className="main-container">
         <div className="search-container">
