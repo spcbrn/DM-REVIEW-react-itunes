@@ -1,13 +1,16 @@
+
+
 .main-container {
 	height:100vh;
 }
 
 .search-container {
-	background: white;
+	background: #FFFFFF;
 	height: 20vh;
 	display: flex;
 	align-items:center;
 	justify-content:space-between;
+	overflow:hidden;
 }
 
 input {
@@ -15,10 +18,9 @@ input {
 	margin-right: 50px;
 	height: 3vh;
 	border: none;
-	border-bottom: 3px solid black;
-	font-family:'courier', sans-serif;
-	font-size: 2em;
-	color: #ff2d55;
+	border: 1px solid black;
+	font-size: 1.5em;
+	color: #555555;
 	padding:3px;
 }
 input:focus{
@@ -26,17 +28,22 @@ input:focus{
 }
 
 table {
-	font-family: arial, sans-serif;
+	color:#222222;
 	border-collapse: collapse;
 	width: 100%;
 }
 
 td, th {
-	border: 1px solid #dddddd;
+	border: 1px solid #999999;
 	text-align: left;
 	padding: 8px;
 }
 
 tr:nth-child(even) {
-	background-color: #dddddd;
+	background-color: #DEDEDE;
+}
+
+tr a {
+	text-decoration:none;
+	color:inherit;
 }

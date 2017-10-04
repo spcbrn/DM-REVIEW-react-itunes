@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from  '../../assets/apple-music.svg'
+import logo from  '../../assets/itunes-logo.png'
 import './Logo.css'
 
 
@@ -7,8 +7,7 @@ export default function Logo(){
 	return(
 		<div className="logo-wrap">
 			<img src={logo}
-			     alt="Apple Music Logo"
-			     style={{height: '7vh'}}/>
+			     alt="Apple Music"/>
 		</div>
 	)
 }

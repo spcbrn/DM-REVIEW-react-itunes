@@ -12,7 +12,7 @@ export default function Results(props) {
 				<td>{props.song}</td>
 				<td>{props.artist}</td>
 				<td>{props.collection}</td>
-				<td><img src={props.albumArt} alt="Album Art Work"/></td>
+				<td><img src={props.albumArt} alt="Album Cover"/></td>
 				<td>{props.type}</td>
 				<td>${props.singlePrice}</td>
 				<td>${props.collectionPrice}</td>

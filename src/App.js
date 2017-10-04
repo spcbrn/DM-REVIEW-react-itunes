@@ -12,35 +12,24 @@ class App extends Component {
       artist: '',
       results: []
     }
-    this.handleChange = this.handleChange.bind(this)
+    this.handleInput = this.handleInput.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
   }
 
   
   handleSearch(e){
     if(e.keyCode === 13){
-	    axios({
-		    method: 'GET',
-		    url: `https://itunes.apple.com/search?term=${this.state.artist}`
-	    }).then(res => {
-		    console.log(res.data.results)
-		    this.setState({results: res.data.results})
+      axios.get(`https://itunes.apple.com/search?term=${this.state.artist}`)
+      .then(res => {
+		    this.setState({
+          results: res.data.results
+        })
 	    })
     }
   }
 
-  handleChange(e) {
+  handleInput(e) {
     this.setState({artist: e.target.value})
-  }
-
-  componentDidMount(){
-	  axios({
-		  method: 'GET',
-		  url: `https://itunes.apple.com/search?term=${this.state.artist}`
-	  }).then(res => {
-	  	console.log(res)
-	    this.setState({results: res.data.results})
-	  })
   }
 
   render() {
@@ -62,25 +51,28 @@ class App extends Component {
       <div className="main-container">
         <div className="search-container">
          <Logo/>
-          <input onChange={this.handleChange}
+          <input placeholder="Search iTunes"
+                 onChange={this.handleInput}
                  onKeyDown={this.handleSearch}
                  value={this.state.artist}/>
         </div>
-        <table>
-          <tbody>
-          <tr>
-            <th>Play</th>
-            <th>Song</th>
-            <th>Artist</th>
-            <th>Collection</th>
-            <th>Album Art</th>
-            <th>Type</th>
-            <th>Single Price</th>
-            <th>Collection Price</th>
-          </tr>
-            {resultsArr}
-          </tbody>
-        </table>
+        <div className="results-container">
+          <table>
+            <tbody>
+            <tr>
+              <th>Play</th>
+              <th>Song</th>
+              <th>Artist</th>
+              <th>Collection</th>
+              <th>Album Art</th>
+              <th>Type</th>
+              <th>Single Price</th>
+              <th>Collection Price</th>
+            </tr>
+              {resultsArr}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }
