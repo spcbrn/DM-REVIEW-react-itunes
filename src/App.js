@@ -16,7 +16,7 @@ class App extends Component {
     this.handleSearch = this.handleSearch.bind(this)
   }
 
-  
+
   handleSearch(e){
     if(e.keyCode === 13){
 
@@ -26,7 +26,8 @@ class App extends Component {
 
         //02: determine path to the array of results we want and put it on state
 		    this.setState({
-          results: res.data.results
+          results: res.data.results,
+          artist: ''
         })
 	    })
     }
