@@ -5,63 +5,23 @@ import axios from "axios";
 import "./App.css";
 
 class App extends Component {
-  constructor() {
-    super();
+  // 01: set up state
 
-    this.state = {
-      searchTerm: "",
-      results: []
-    };
-  }
+  // 02: method to handle search input
 
-  handleSearch = e => {
-    if (e.keyCode === 13) {
-      if (!this.state.searchTerm) return;
-      // 01: plug our search string into the request URL
-      axios
-        .get(`https://itunes.apple.com/search?term=${this.state.searchTerm}`)
-        .then(res => {
-          // 02: set the search results on state (from the response data object)
-          this.setState({
-            results: res.data.results,
-            searchTerm: ""
-          });
-        });
-    }
-  };
-
-  handleInput = e => {
-    this.setState({ searchTerm: e.target.value });
-  };
+  // 03: method to handle executing the search request
+  // 04: plug our search string into the request URL
+  // 05: set the search results (from the response data) on state
 
   render() {
-    // 03: render our array of results using the Results component, and pass in all necessary props
-    const resultsArr = this.state.results.map(track => {
-      return (
-        <Result
-          key={track.previewUrl}
-          preview={track.previewUrl}
-          song={track.trackName}
-          artist={track.artistName}
-          collection={track.collectionName}
-          albumArt={track.artworkUrl60}
-          type={track.kind}
-          singlePrice={track.trackPrice}
-          collectionPrice={track.collectionPrice}
-        />
-      );
-    });
+    // 06: render our array of results using the Results component, and pass in all necessary props
+    const resultsArr = null;
 
     return (
       <div className="main-container">
         <div className="search-container">
           <Logo />
-          <input
-            placeholder="Search iTunes"
-            onChange={this.handleInput}
-            onKeyDown={this.handleSearch}
-            value={this.state.searchTerm}
-          />
+          <input placeholder="Search iTunes" />
         </div>
         <div className="results-container">
           <table>
