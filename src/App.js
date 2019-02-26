@@ -1,82 +1,81 @@
-import React, { Component } from 'react';
-import Logo from './components/Logo/Logo'
-import Results from './components/Results/Results'
-import axios from 'axios'
-import './App.css';
+import React, { Component } from "react";
+import Logo from "./components/Logo/Logo";
+import Result from "./components/Result/Result";
+import axios from "axios";
+import "./App.css";
 
 class App extends Component {
-  constructor(){
+  constructor() {
     super();
 
     this.state = {
-      artist: '',
+      searchTerm: "",
       results: []
+    };
+  }
+
+  handleSearch = e => {
+    if (e.keyCode === 13) {
+      if (!this.state.searchTerm) return;
+      // 01: plug our search string into the request URL
+      axios
+        .get(`https://itunes.apple.com/search?term=${this.state.searchTerm}`)
+        .then(res => {
+          // 02: set the search results on state (from the response data object)
+          this.setState({
+            results: res.data.results,
+            searchTerm: ""
+          });
+        });
     }
-    this.handleInput = this.handleInput.bind(this)
-    this.handleSearch = this.handleSearch.bind(this)
-  }
+  };
 
-
-  handleSearch(e){
-    if(e.keyCode === 13){
-
-      //01: plug our search string into the request URL
-      axios.get(`https://itunes.apple.com/search?term=${this.state.artist}`)
-      .then(res => {
-
-        //02: determine path to the array of results we want and put it on state
-		    this.setState({
-          results: res.data.results,
-          artist: ''
-        })
-	    })
-    }
-  }
-
-  handleInput(e) {
-    this.setState({artist: e.target.value})
-  }
+  handleInput = e => {
+    this.setState({ searchTerm: e.target.value });
+  };
 
   render() {
-
-    //03: render our array of results using the Results component, and pass in all necessary props
-    const resultsArr = this.state.results.map((c, i) => {
+    // 03: render our array of results using the Results component, and pass in all necessary props
+    const resultsArr = this.state.results.map(track => {
       return (
-        <Results key={i}
-                 preview={c.previewUrl}
-                 song={c.trackName}
-                 artist={c.artistName}
-                 collection={c.collectionName}
-                 albumArt={c.artworkUrl60}
-                 type={c.kind}
-                 singlePrice={c.trackPrice}
-                 collectionPrice={c.collectionPrice }
-            />
-      )
-    })
+        <Result
+          key={track.previewUrl}
+          preview={track.previewUrl}
+          song={track.trackName}
+          artist={track.artistName}
+          collection={track.collectionName}
+          albumArt={track.artworkUrl60}
+          type={track.kind}
+          singlePrice={track.trackPrice}
+          collectionPrice={track.collectionPrice}
+        />
+      );
+    });
 
     return (
       <div className="main-container">
         <div className="search-container">
-         <Logo/>
-          <input placeholder="Search iTunes"
-                 onChange={this.handleInput}
-                 onKeyDown={this.handleSearch}
-                 value={this.state.artist}/>
+          <Logo />
+          <input
+            placeholder="Search iTunes"
+            onChange={this.handleInput}
+            onKeyDown={this.handleSearch}
+            value={this.state.searchTerm}
+          />
         </div>
         <div className="results-container">
           <table>
             <tbody>
-            <tr>
-              <th>Play</th>
-              <th>Song</th>
-              <th>Artist</th>
-              <th>Collection</th>
-              <th>Album Art</th>
-              <th>Type</th>
-              <th>Single Price</th>
-              <th>Collection Price</th>
-            </tr>
+              <tr>
+                <th>Play</th>
+                <th>Song</th>
+                <th>Artist</th>
+                <th>Collection</th>
+                <th>Album Art</th>
+                <th>Type</th>
+                <th>Single Price</th>
+                <th>Collection Price</th>
+              </tr>
               {resultsArr}
             </tbody>
           </table>
